@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 
-const Dropdown = ({ options, selected, onSelectedChange }) => {
+const Dropdown = ({ label, options, selected, onSelectedChange }) => {
     const [open, setOpen] = useState(false);
     const ref = useRef();
 
@@ -17,10 +17,12 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
         }
 
         document.body.addEventListener('click', onBodyClick);
+        // remove event listener if the component isnt renndered
+        // Cleanup function
+        return () => {
+            document.body.removeEventListener('click', onBodyClick);
+        };
 
-            return () => {
-                document.body.removeEventListener('click', onBodyClick);
-            };
     }, []);
 
     const renderedOptions = options.map((option) => {
@@ -49,7 +51,7 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
     return (
         <div ref={ref} className="ui form container drop-down">
             <div className="field">
-                <label className="label">Select a Color</label>
+                <label className="label">{label}</label>
                 <div onClick={() => {
                     setOpen(!open);
                 }} 
