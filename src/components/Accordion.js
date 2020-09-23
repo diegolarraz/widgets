@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 
+//props can be refactored by specifying like this 
 const Accordion = ({ items }) => {
     const [activeIndex, setActiveIndex] = useState(null);
 
+    // call back function arrowed as usual
     const onTitleClick = (index) => {
         if (index === activeIndex) {
             return setActiveIndex(null);
@@ -11,8 +13,12 @@ const Accordion = ({ items }) => {
     }
 
     const renderdItems = items.map((item, index) => {
+        // active class deals with rendering the open segment so conditional
+        // used to activate the class or leave as an empty string
+        
         const active = index === activeIndex ? 'active' : ''
 
+        //use react fragment to avoid double divs
         return (
             <React.Fragment key={item.title}>
                 <div 

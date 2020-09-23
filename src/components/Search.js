@@ -4,6 +4,12 @@ const Search = () => {
     const [term, setTerm] = useState('code');
     const [debouncedTerm, setDebouncedTerm] = useState(term);
     const [results, setResults] = useState([]);
+
+    // split into two different use effects in order to get 1 api request instead of two
+    // always check that with more than one piece of state in the array can complicate things
+    // you can always split them to fix this issue
+    // in this case we check debouced term to when it changes and updates calls the
+    // second use state there for API request only takes place when the debouced updates
    
     useEffect(() => {
         const timerId = setTimeout(() => {
@@ -34,7 +40,8 @@ const Search = () => {
 
         if (debouncedTerm) {
             search();
-        }   
+        }
+
     }, [debouncedTerm]);
 
     const renderedResults = results.map((result) => {
