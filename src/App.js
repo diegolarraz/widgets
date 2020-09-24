@@ -3,6 +3,9 @@ import Accordion from './components/Accordion';
 import Search from './components/Search';
 import Dropdown from './components/Dropdown';
 import Translate from './components/Translate';
+import Route from './components/Route';
+import Header from './components/Header';
+
 
 const items = [
     {
@@ -36,16 +39,28 @@ const options = [
 ];
 
 export default () => {
-    // const [selected, setSelected] = useState(options[0]);
+    const [selected, setSelected] = useState(options[0]);
     // const [toggled, setToggled] = useState(false);
     return (
         
         <div>
+            <Header />
             {/* <button onClick={() => setToggled(!toggled)}>Toggle Dropdown</button> */}
-            {/* <Accordion items={items} /> */}
+            <Route path="/">
+                <Accordion items={items} />
+            </Route>
+            <Route path="/list">
+                <Search />
+            </Route>
+            <Route path="/dropdown">
+               <Dropdown selected={selected} onSelectedChange={setSelected} options={options} />
+            </Route>
+            <Route path="/translate">
+                <Translate />
+            </Route>
             {/* <Search /> */}
             {/* { toggled ? (<Dropdown selected={selected} onSelectedChange={setSelected} options={options} />) : null } */}
-            <Translate />
+            {/* <Translate /> */}
         </div>
     );
 };
